@@ -1,0 +1,179 @@
+<!doctype html>
+<html dir="[direction]" lang="[language]" class="[class names]">
+
+	<title> SOFT:SERVE0004/D-GRADE</title>
+
+	<head>
+    <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+         <link rel="stylesheet" href="file3.css">
+         <script src="https://unpkg.com/cursor-effects@latest/dist/browser.js"> </script>
+
+
+
+
+	</head>
+
+
+	<body>
+    <script> new cursoreffects.bubbleCursor(); </script>
+
+    <img id="background-images" src="images2/download.gif">
+
+        <!-- <img id="slime1" src="images2/spiral-gif.gif">
+        <img id="slime2" src="images/slimePart2.png"> -->
+
+
+        <img src="images2/jelz7.jpeg">
+        <img src="images2/jelz_avatar_clear.png">
+        <img id="background-images" src="images2/jelz-eye.png">
+
+
+
+
+<iframe width="100%" height="600" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1319239012%3Fsecret_token%3Ds-hQNUA5dxhYm&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/digitalhell" title="DIGITAL HELL" target="_blank" style="color: #cccccc; text-decoration: none;">DIGITAL HELL</a> · <a href="https://soundcloud.com/digitalhell/jelz-isolated/s-hQNUA5dxhYm" title="JELZ - ISOLATED" target="_blank" style="color: #cccccc; text-decoration: none;">JELZ - ISOLATED</a></div>
+         <div>  <iframe style= "color:black; top:-1px; left:-1px; height:2%;"scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1319239012%3Fsecret_token%3Ds-hQNUA5dxhYm&color=%000000&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&amp;show_artwork=false"></iframe></div>
+
+
+
+
+        <!-- <img src="images/holySpirit.png">
+        <img src="images/numbers_color.gif">
+        <img src="images/fetus.png"> -->
+
+        <p id="tracklist">TRACKLIST:<br>
+        <br> 1. Shiva Shidapu - Intro
+        <br> 2. Ancestral Voices - Prithvi
+        <br> 3. Pact Infernal - Capex Inifniti
+        <br> 4. Kerridge - GOFD
+        <br> ...
+</p>
+
+<!--        <img src="images/header_small.jpg">-->
+        <!-- <img src="images/stockVortex.jpg">
+        <img src="images/numberPyramidColor.gif"> -->
+
+        <p>website by: <a href="https://www.instagram.com/self_driving_cowboy/">@self_driving_cowboy</a></p>
+
+        <canvas id="c"></canvas>
+
+
+
+      	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+      	<script src="js/scripts.js"></script>
+
+	</body>
+
+  <script type="module">
+import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r110/build/three.module.js';
+import {EffectComposer} from 'https://threejsfundamentals.org/threejs/resources/threejs/r110/examples/jsm/postprocessing/EffectComposer.js';
+import {RenderPass} from 'https://threejsfundamentals.org/threejs/resources/threejs/r110/examples/jsm/postprocessing/RenderPass.js';
+import {CustomPass} from './postprocessing/CustomPass.js';
+
+import {GUI} from 'https://threejsfundamentals.org/threejs/../3rdparty/dat.gui.module.js';
+
+
+function main() {
+
+	const canvas = document.querySelector('#c');
+	const renderer = new THREE.WebGLRenderer({canvas});
+
+	const fov = 75;
+	const aspect = 2;  // the canvas default
+	const near = 0.1;
+	const far = 6;
+	const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+	camera.position.z = 2;
+
+	const scene = new THREE.Scene();
+
+	{
+	  const color = 0x84FF00;
+	  const intensity = 4;
+	  const light = new THREE.DirectionalLight(color, intensity);
+	  light.position.set(-1, 2, 4);
+	  scene.add(light);
+	}
+
+	var imageTexture = new THREE.TextureLoader().load( 'images2/Blue-body4.jpg' );
+
+
+	// var loader = new THREE.FontLoader();
+	// loader.load( 'fonts/helvetiker_bold.typeface.json', function ( font )
+
+	{
+		// This code will only execute when the font has loaded.
+		var fontSize = .4;
+		var textX = -1.55;
+
+		if (window.innerWidth <= 411) {
+				fontSize = .33;
+				textX = -1.32;
+				//textPosition = .5;
+		}
+
+		if (window.innerWidth >= 800) {
+				fontSize = 1.;
+				textX = -4;
+				//textPosition = .5;
+		}
+
+	  const composer = new EffectComposer(renderer);
+	  composer.addPass(new RenderPass(scene, camera));
+
+		const customPass = new CustomPass(
+	      1.,   // our cool value
+				imageTexture
+	  );
+
+		customPass.renderToScreen = true;
+		composer.addPass(customPass);
+
+	  function resizeRendererToDisplaySize(renderer) {
+	    const canvas = renderer.domElement;
+	    const width = canvas.clientWidth;
+	    const height = canvas.clientHeight;
+	    const needResize = canvas.width !== width || canvas.height !== height;
+	    if (needResize) {
+	      renderer.setSize(width, height, false);
+	    }
+	    return needResize;
+	  }
+
+	  let then = 0;
+
+	  function render(now) {
+	    now *= 0.001;  // convert to seconds
+	    const deltaTime = now - then;
+	    then = now;
+
+			customPass.uniforms["time"].value += deltaTime * 10.;
+
+	    if (resizeRendererToDisplaySize(renderer)) {
+	      const canvas = renderer.domElement;
+	      camera.aspect = canvas.clientWidth / canvas.clientHeight;
+	      camera.updateProjectionMatrix();
+	      composer.setSize(canvas.width, canvas.height);
+	    }
+
+	    composer.render(deltaTime);
+
+	    requestAnimationFrame(render);
+	  }
+
+	  requestAnimationFrame(render);
+
+	// }); // called after the font is loaded
+
+	}
+
+}
+
+main();
+
+</script>
+
+</html>
